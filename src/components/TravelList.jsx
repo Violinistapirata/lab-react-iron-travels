@@ -17,7 +17,7 @@ function TravelList() {
           destination,
           image,
           days,
-          allinclusive,
+          allInclusive,
           totalCost,
           description,
           parts,
@@ -25,13 +25,25 @@ function TravelList() {
           return (
             <article key={id}>
               <img src={image} alt="image" />
-              <div>
+              <div className="info">
                 <h2>
                   {destination} ({days} Days)
                 </h2>
                 <p>{description}</p>
-                <b>Price: </b>
-                <span>{totalCost}€</span>
+                <div>
+                    <b>Price: </b>
+                    <span>{totalCost}€</span>
+                </div>
+                <div className="labels-wrapper">
+                  {totalCost <= 350 ? (
+                    <label className="great-deal">Great Deal</label>
+                  ) : totalCost >= 1500 ? (
+                    <label className="premium">Premium</label>
+                  ) : (
+                    ""
+                  )}
+                  {allInclusive ? <label>All Inclusive</label> : ""}
+                </div>
               </div>
             </article>
           );
