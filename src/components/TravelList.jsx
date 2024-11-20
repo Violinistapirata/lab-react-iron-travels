@@ -9,6 +9,13 @@ import { useState } from "react";
 
 function TravelList() {
   const [travelList, setTravelList] = useState(travelPlansData);
+  const updatedTravelList = (elementId) => {
+    const travelListCopy = [...travelList];
+    const filteredTravelList = travelListCopy.filter(
+      (element) => element.id !== elementId
+    );
+    return filteredTravelList;
+  };
   return (
     <section className="card-wrapper">
       {travelList.map(
@@ -31,19 +38,21 @@ function TravelList() {
                 </h2>
                 <p>{description}</p>
                 <div>
-                    <b>Price: </b>
-                    <span>{totalCost}€</span>
+                  <b>Price: </b>
+                  <span>{totalCost}€</span>
                 </div>
                 <div className="labels-wrapper">
-                  {totalCost <= 350 ? (
+                  {totalCost <= 350 && (
                     <label className="great-deal">Great Deal</label>
-                  ) : totalCost >= 1500 ? (
-                    <label className="premium">Premium</label>
-                  ) : (
-                    ""
                   )}
-                  {allInclusive ? <label>All Inclusive</label> : ""}
+                  {totalCost >= 1500 && (
+                    <label className="premium">Premium</label>
+                  )}
+                  {allInclusive && <label>All Inclusive</label>}
                 </div>
+                <button onClick={() => setTravelList(updatedTravelList(id))}>
+                  Delete
+                </button>
               </div>
             </article>
           );
